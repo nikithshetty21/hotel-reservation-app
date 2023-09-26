@@ -6,7 +6,7 @@ import ResultTable from "../../src/Components/Search/ResultTable"
 
 
 describe('Result Table', () => {
-    render(<ResultTable setSelectedResult={ () => {}} handleOpen= {() => {}} searchResults={ [ReservationData[0]]}/>);
+    render(<ResultTable setSelectedResult={ () => {}} searchResults={ [ReservationData[0]]}/>);
     it('renders Table', () => {
     expect(screen.getByText('First Name')).toBeInTheDocument();
     expect(screen.getByText('Last Name')).toBeInTheDocument();

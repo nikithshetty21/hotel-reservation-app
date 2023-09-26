@@ -1,8 +1,23 @@
 import { Dayjs } from "dayjs";
+import {  Dispatch, SetStateAction } from "react";
 
 export interface HandleEventInterface {
   target: HTMLInputElement;
 }
+
+export interface AppState {
+	reservationData: Reservation[];
+	setReservationData: Dispatch<SetStateAction<Reservation[]>>;
+	searchCriteria: string;
+	setSearchCriteria: Dispatch<SetStateAction<string>>;
+	searchString: string;
+	setSearchString: Dispatch<SetStateAction<string>>;
+	open: boolean, 
+    setOpen: Dispatch<SetStateAction<boolean>>;
+    handleOpen: () => void,
+    handleClose: () => void
+  }
+  
 
 export interface Stay {
   arrivalDate: Dayjs;

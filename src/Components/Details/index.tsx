@@ -1,16 +1,15 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/joy/Modal';
 import ModalClose from '@mui/joy/ModalClose';
 import Reservations from './Reservations';
-import { Reservation } from '../../Interface';
+import { AppState, Reservation } from '../../Interface';
+import { AppContext } from '../../Context';
 
 
 type modalProps = {
-    modalOpen: boolean,
-    handleClose: any,
+    modalOpen: boolean
     data: Reservation |  null
-
 }
 
 const style = {
@@ -29,8 +28,8 @@ const style = {
   };
 
 const Details = (props: modalProps) => {
-
-    const {modalOpen, handleClose, data} = props;
+  const {  handleClose } = useContext<AppState>(AppContext);
+    const {modalOpen, data} = props;
     return (<Modal
         open={modalOpen}
         onClose={handleClose}
@@ -40,7 +39,7 @@ const Details = (props: modalProps) => {
         
         <Box sx={style}>
         <ModalClose variant="plain" sx={{ m: 1 }} />
-            <Reservations data={data} handleClose={handleClose}/>
+            <Reservations data={data}/>
         </Box>
       </Modal>)
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -6,17 +6,18 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { Reservation } from '../../../Interface';
+import { AppState, Reservation } from '../../../Interface';
+import { AppContext } from '../../../Context';
 
 
 interface DefaultProps {
   setSelectedResult: any,
-  handleOpen: any,
   searchResults: Reservation[]
 }
 const ResultTable = (props: DefaultProps) => {
 
-  const{setSelectedResult, handleOpen, searchResults} = props
+  const{setSelectedResult, searchResults} = props;
+  const {  handleOpen } = useContext<AppState>(AppContext);
 
     const handleResultClick = (result: Reservation) => {
         setSelectedResult(result)

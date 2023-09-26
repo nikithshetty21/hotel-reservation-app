@@ -1,8 +1,10 @@
+import dayjs from "dayjs";
+
 export const ReservationData = [
 	{
 	  "stay": {
-		"arrivalDate": "2021-11-18T05:00:00.000Z",
-		"departureDate": "2021-11-25T05:00:00.000Z"
+		"arrivalDate": dayjs("2021-11-18T05:00:00.000Z"),
+		"departureDate": dayjs("2021-11-25T05:00:00.000Z")
 	  },
 	  "room": {
 		"roomSize": "business-suite",
@@ -41,8 +43,8 @@ export const ReservationData = [
 	},
 	{
 	  "stay": {
-		"arrivalDate": "2021-11-01T04:00:00.000Z",
-		"departureDate": "2021-11-04T04:00:00.000Z"
+		"arrivalDate": dayjs("2021-11-01T04:00:00.000Z"),
+		"departureDate": dayjs("2021-11-04T04:00:00.000Z")
 	  },
 	  "room": {
 		"roomSize": "presidential-suite",

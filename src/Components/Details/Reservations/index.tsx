@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState , Dispatch, SetStateAction} from "react";
 import Grid from "@mui/material/Grid";
 import dayjs, { Dayjs } from "dayjs";
 import { DatePicker } from "@mui/x-date-pickers";
@@ -16,13 +16,16 @@ import Switch from "@mui/material/Switch";
 import Checkbox from "@mui/material/Checkbox";
 import FormGroup from "@mui/material/FormGroup";
 import { AppContext } from "../../../Context";
-import { HandleEventInterface, Reservation } from "../../../Interface";
+import {
+  AppState,
+  HandleEventInterface,
+  Reservation,
+} from "../../../Interface";
 import { Button, Dialog, DialogActions, DialogTitle } from "@mui/material";
 import { Autocomplete, Chip } from "@mui/material";
 
 interface DefaultProps {
   data: Reservation | null;
-  handleClose: any;
 }
 
 const Reservations = (props: DefaultProps) => {
@@ -30,10 +33,9 @@ const Reservations = (props: DefaultProps) => {
   const [alert, setAlert] = useState(false);
   const [alertText, setAlertText] = useState("");
   const [deleteState, setDeleteState] = useState(true);
-
-  const appState = useContext(AppContext);
-  const { data, handleClose } = props;
-  const { reservationData, setReservationData } = appState as any;
+  const { data } = props;
+  const { reservationData, setReservationData, handleClose } =
+    useContext<AppState>(AppContext);
   const [dataIndex, setDataIndex] = useState(0);
   const buttonText = data ? "UPDATE" : "ADD";
 
@@ -44,7 +46,7 @@ const Reservations = (props: DefaultProps) => {
     } else {
       setDeleteState(false);
     }
-    const indexOfData: number = reservationData.indexOf(data);
+    const indexOfData: number = reservationData.indexOf(data as any);
     setDataIndex(indexOfData);
   }, []);
 
@@ -168,7 +170,7 @@ const Reservations = (props: DefaultProps) => {
 
   const handleUpdate = () => {
     if (data) {
-      const tempData = reservationData;
+      const tempData: Reservation[] = reservationData;
       reservationData[dataIndex] = reservationState;
       setReservationData(tempData);
       setAlertText("Updated");
@@ -440,12 +442,6 @@ const Reservations = (props: DefaultProps) => {
         </Grid>
 
         <Grid item xs={12} textAlign="left">
-          {/* <MuiChipsInput
-            label="Tags"
-            value={reservationState.tags}
-            onChange={handleChipsChange}
-            name="tags"
-          /> */}
           <Autocomplete
             clearIcon={false}
             options={[]}
