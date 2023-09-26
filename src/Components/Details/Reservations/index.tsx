@@ -1,10 +1,4 @@
-
-import React, {
-  ReactEventHandler,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Grid from "@mui/material/Grid";
 import dayjs, { Dayjs } from "dayjs";
 import { DatePicker } from "@mui/x-date-pickers";
@@ -18,8 +12,6 @@ import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
-//import { MuiChipsInput } from 'mui-chips-input';
-
 import Switch from "@mui/material/Switch";
 import Checkbox from "@mui/material/Checkbox";
 import FormGroup from "@mui/material/FormGroup";
@@ -27,7 +19,6 @@ import { AppContext } from "../../../Context";
 import { HandleEventInterface, Reservation } from "../../../Interface";
 import { Button, Dialog, DialogActions, DialogTitle } from "@mui/material";
 import { Autocomplete, Chip } from "@mui/material";
-//const { MuiChipsInput } = require('mui-chips-input');
 
 interface DefaultProps {
   data: Reservation | null;
@@ -37,12 +28,12 @@ interface DefaultProps {
 const Reservations = (props: DefaultProps) => {
   const [error, setError] = useState(false);
   const [alert, setAlert] = useState(false);
-  const [alertText, setAlertText] = useState('');
+  const [alertText, setAlertText] = useState("");
   const [deleteState, setDeleteState] = useState(true);
 
   const appState = useContext(AppContext);
   const { data, handleClose } = props;
-  const { reservationData, setReservationData } = appState;
+  const { reservationData, setReservationData } = appState as any;
   const [dataIndex, setDataIndex] = useState(0);
   const buttonText = data ? "UPDATE" : "ADD";
 
@@ -51,18 +42,16 @@ const Reservations = (props: DefaultProps) => {
       setReservationState(data);
       setDeleteState(true);
     } else {
-      setDeleteState(false)
+      setDeleteState(false);
     }
     const indexOfData: number = reservationData.indexOf(data);
     setDataIndex(indexOfData);
-    
   }, []);
 
-  
-const handleAlertClose = () => {
-  setAlert(false)
-  handleClose();
-}
+  const handleAlertClose = () => {
+    setAlert(false);
+    handleClose();
+  };
 
   const [reservationState, setReservationState] = useState<any>({
     stay: {
@@ -97,7 +86,7 @@ const handleAlertClose = () => {
 
   useEffect(() => {
     validateReservation();
-  }, [reservationState])
+  }, [reservationState]);
 
   const handleChipsChange = (newChips: any) => {
     setReservationState((prevState: any) => ({
@@ -182,63 +171,74 @@ const handleAlertClose = () => {
       const tempData = reservationData;
       reservationData[dataIndex] = reservationState;
       setReservationData(tempData);
-      setAlertText('Updated')
+      setAlertText("Updated");
     } else {
       const tempData = [...reservationData, reservationState];
       setDeleteState(true);
       setReservationData(tempData);
-      setAlertText('Added')
+      setAlertText("Added");
     }
     setAlert(true);
-    
   };
 
   const handleDelete = () => {
-    if(data) {
+    if (data) {
       const tempData = reservationData;
       tempData.splice(dataIndex, 1);
-      setReservationData(tempData)
+      setReservationData(tempData);
     } else {
       const tempData = reservationData;
       tempData.pop();
-      setReservationData(tempData)
+      setReservationData(tempData);
     }
     setAlert(true);
-    setAlertText('Deleted');
-    
-  }
-
+    setAlertText("Deleted");
+  };
 
   const getEmailHelperText = () => {
     const emailValue = reservationState.email;
-    const validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-    if(!reservationState.email) return 'Email is Required';
-     if(!String(emailValue).toLowerCase().match(validRegex)) return 'Enter valid email';
+    const validRegex =
+      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    if (!reservationState.email) return "Email is Required";
+    if (!String(emailValue).toLowerCase().match(validRegex))
+      return "Enter valid email";
     return undefined;
-
-  }
+  };
 
   const getPhoneHelperText = () => {
     const phoneNumber = reservationState.phone;
-    const validRegex = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
-    if(!reservationState.phone) return 'Phone Number is Required';
-     if(!phoneNumber.match(validRegex)) return 'Enter valid Phone Number';
+    const validRegex =
+      /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
+    if (!reservationState.phone) return "Phone Number is Required";
+    if (!phoneNumber.match(validRegex)) return "Enter valid Phone Number";
     return undefined;
-
-  }
+  };
 
   const validateReservation = () => {
-    const {firstName, lastName, email, phone} = reservationState;
-    if(!firstName || !lastName || !email || !phone || !!getEmailHelperText() || !!getPhoneHelperText()) {
-        setError(true)
+    const { firstName, lastName, email, phone } = reservationState;
+    if (
+      !firstName ||
+      !lastName ||
+      !email ||
+      !phone ||
+      !!getEmailHelperText() ||
+      !!getPhoneHelperText()
+    ) {
+      setError(true);
     } else {
-      setError(false)
+      setError(false);
     }
-  }
+  };
 
   return (
     <FormGroup>
-      <Grid container spacing={3} direction="row" rowSpacing={1} columnSpacing={2}>
+      <Grid
+        container
+        spacing={3}
+        direction="row"
+        rowSpacing={1}
+        columnSpacing={2}
+      >
         <Grid item xs={3} textAlign="left">
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker
@@ -447,22 +447,22 @@ const handleAlertClose = () => {
             name="tags"
           /> */}
           <Autocomplete
-      clearIcon={false}
-      options={[]}
-      value={reservationState.tags}
-      freeSolo
-      multiple
-      onChange={(event, value) => handleChipsChange(value)}
-      renderTags={(value: any, props: any) => {
-        return (value.map((option: any, index: number) => (
-          <Chip label={option} {...props({ index })} />
-        )))
-
-      }
-      }
-      renderInput={(params: any) => <TextField label="Tags" {...params} />}
-    />
-        </Grid> 
+            clearIcon={false}
+            options={[]}
+            value={reservationState.tags}
+            freeSolo
+            multiple
+            onChange={(event, value) => handleChipsChange(value)}
+            renderTags={(value: any, props: any) => {
+              return value.map((option: any, index: number) => (
+                <Chip label={option} {...props({ index })} />
+              ));
+            }}
+            renderInput={(params: any) => (
+              <TextField label="Tags" {...params} />
+            )}
+          />
+        </Grid>
 
         <Grid item xs={12} textAlign="left">
           <FormControlLabel
@@ -508,36 +508,44 @@ const handleAlertClose = () => {
           <Button onClick={handleUpdate} variant="contained" disabled={error}>
             {buttonText}
           </Button>
-          
         </Grid>
         <Grid item xs={2} textAlign="left">
-        {deleteState &&  <Button onClick={handleDelete} variant="contained" disabled={error}>
-            DELETE
-          </Button>}
-          {alert && <Alert alert={alert} handleAlertClose={handleAlertClose} action={alertText}/>}
-          </Grid>
+          {deleteState && (
+            <Button onClick={handleDelete} variant="contained" disabled={error}>
+              DELETE
+            </Button>
+          )}
+          {alert && (
+            <Alert
+              alert={alert}
+              handleAlertClose={handleAlertClose}
+              action={alertText}
+            />
+          )}
+        </Grid>
       </Grid>
     </FormGroup>
   );
 };
 
-
 const Alert = (props: any) => {
-  return(<Dialog
-    open={props.alert}
-    onClose={props.handleAlertClose}
-    aria-labelledby="alert-dialog-title"
-    aria-describedby="alert-dialog-description"
-  >
-    <DialogTitle id="alert-dialog-title">
-      {`Record successfully ${props.action}`}
-    </DialogTitle>
-    <DialogActions>
-          <Button autoFocus onClick={props.handleAlertClose}>
-            OK
-          </Button>
-        </DialogActions>
-    </Dialog>)
-}
+  return (
+    <Dialog
+      open={props.alert}
+      onClose={props.handleAlertClose}
+      aria-labelledby="alert-dialog-title"
+      aria-describedby="alert-dialog-description"
+    >
+      <DialogTitle id="alert-dialog-title">
+        {`Record successfully ${props.action}`}
+      </DialogTitle>
+      <DialogActions>
+        <Button autoFocus onClick={props.handleAlertClose}>
+          OK
+        </Button>
+      </DialogActions>
+    </Dialog>
+  );
+};
 
 export default Reservations;
