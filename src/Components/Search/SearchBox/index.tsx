@@ -33,6 +33,8 @@ const SearchBox = () => {
       label="Search..."
       variant="outlined"
       onChange={onSearchInput}
+      name='search-box'
+      data-testid='search-box'
     />
     </Tooltip>
   );

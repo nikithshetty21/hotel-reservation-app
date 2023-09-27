@@ -24,12 +24,14 @@ const Search = () => {
   }, [open]);
 
   const handleSearch = (event: any) => {
+    console.log(' i came here');
     const { searchString, searchCriteria, reservationData } = appState;
     let result = [];
     if (reservationData && Array.isArray(reservationData)) {
       result = reservationData.filter(
         (data: any) => data[searchCriteria] === searchString
       );
+      console.log('my result', searchString, searchCriteria);
       setSearchResult(result);
       if (result && result.length === 0 && event) {
         setNoResultText("No Result for the entered input");
@@ -55,7 +57,6 @@ const Search = () => {
         rowSpacing={1}
         columnSpacing={1}
       >
-        {" "}
         <Grid item xs={12} textAlign="center">
           <Button
             role="addnewbutton"
@@ -74,6 +75,7 @@ const Search = () => {
         <Grid item xs={4} textAlign="left">
           <Button
             role="searchbutton"
+            data-testid="searchbutton"
             disabled={!appState.searchString}
             onClick={handleSearch}
             variant="contained"

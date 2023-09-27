@@ -1,4 +1,8 @@
-import React, { useContext, useEffect, useState , Dispatch, SetStateAction} from "react";
+import React, {
+  useContext,
+  useEffect,
+  useState
+} from "react";
 import Grid from "@mui/material/Grid";
 import dayjs, { Dayjs } from "dayjs";
 import { DatePicker } from "@mui/x-date-pickers";
@@ -245,6 +249,7 @@ const Reservations = (props: DefaultProps) => {
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker
               label="Date of Arrival"
+              data-testid='date-test'
               value={dayjs(reservationState.stay.arrivalDate)}
               onChange={(newValue: any) =>
                 handleDateChange(newValue, "arrivalDate")
@@ -271,6 +276,7 @@ const Reservations = (props: DefaultProps) => {
             options={SuiteOptions}
             multiple={false}
             value={reservationState.room.roomSize}
+            data-testid="room-size"
           ></SelectBox>
         </Grid>
         <Grid item xs={9} textAlign="left">
@@ -278,6 +284,7 @@ const Reservations = (props: DefaultProps) => {
             id="room-quantity"
             label="Room Quantity"
             variant="standard"
+            data-testid="room-quantity"
             value={reservationState.room.roomQuantity}
             onChange={handleRoomQuantityChange}
           />
@@ -291,6 +298,7 @@ const Reservations = (props: DefaultProps) => {
             label="First Name"
             variant="standard"
             name="firstName"
+            data-testid="first-name"
             value={reservationState.firstName}
             onChange={handleInputChange}
           />
@@ -342,6 +350,7 @@ const Reservations = (props: DefaultProps) => {
             name="streetName"
             value={reservationState.addressStreet.streetName}
             variant="standard"
+            data-testid="street-name"
             onChange={handleAddressStreetChange}
           />
         </Grid>
@@ -361,6 +370,7 @@ const Reservations = (props: DefaultProps) => {
             id="zip"
             label="Zip"
             name="zipCode"
+            data-testid="zip"
             onChange={handleAddressLocChange}
             value={reservationState.addressLocation.zipCode}
             variant="standard"
@@ -391,6 +401,7 @@ const Reservations = (props: DefaultProps) => {
           <SelectBox
             id="extra-utility"
             label="Extras"
+            data-testid="extras"
             handleChange={handleExtrasChange}
             options={Extras}
             multiple={true}
@@ -448,6 +459,7 @@ const Reservations = (props: DefaultProps) => {
             value={reservationState.tags}
             freeSolo
             multiple
+            data-testid="chips"
             onChange={(event, value) => handleChipsChange(value)}
             renderTags={(value: any, props: any) => {
               return value.map((option: any, index: number) => (
@@ -468,6 +480,7 @@ const Reservations = (props: DefaultProps) => {
                 onChange={handleSwitchChange}
                 value={reservationState.reminder}
                 name="reminder"
+                data-testid="reminder"
               />
             }
             label="Send me a Reminder"
@@ -495,19 +508,30 @@ const Reservations = (props: DefaultProps) => {
             control={<Checkbox />}
             label="I confirm the information given above"
             name="confirm"
+            data-testid="confirm"
             value={reservationState.confirm}
             onChange={handleSwitchChange}
           />
         </Grid>
 
         <Grid item xs={2} textAlign="left">
-          <Button onClick={handleUpdate} variant="contained" disabled={error}>
+          <Button
+            onClick={handleUpdate}
+            data-testid="update-button"
+            variant="contained"
+            disabled={error}
+          >
             {buttonText}
           </Button>
         </Grid>
         <Grid item xs={2} textAlign="left">
           {deleteState && (
-            <Button onClick={handleDelete} variant="contained" disabled={error}>
+            <Button
+              onClick={handleDelete}
+              data-testid="delete-button"
+              variant="contained"
+              disabled={error}
+            >
               DELETE
             </Button>
           )}
@@ -516,6 +540,7 @@ const Reservations = (props: DefaultProps) => {
               alert={alert}
               handleAlertClose={handleAlertClose}
               action={alertText}
+              data-testid="alert-window"
             />
           )}
         </Grid>
