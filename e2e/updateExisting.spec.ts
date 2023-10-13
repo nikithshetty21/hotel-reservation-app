@@ -10,8 +10,6 @@ test('tests for searching a record and updating it', async ({ page }) => {
   await page.getByRole('row', { name: 'IDM ENG idm.test@idm.com 9999999999' }).getByTestId('first-name').click();
   await page.getByLabel('Choose date, selected date is Nov 18, 2021').click();
   await page.getByRole('gridcell', { name: '2', exact: true }).click();
-  await page.getByLabel('Business Suite').click();
-  await page.getByTestId('presidential-suite').click();
   await page.getByLabel('Room Quantity').click();
   await page.getByLabel('Room Quantity').fill('4');
   await page.getByLabel('Cash').check();
