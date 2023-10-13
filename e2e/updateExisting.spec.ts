@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test } from '@playwright/test';
 
 test('tests for searching a record and updating it', async ({ page }) => {
   await page.goto('http://localhost:3000/');
