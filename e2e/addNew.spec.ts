@@ -5,8 +5,13 @@ test('tests adding a record and updating it', async ({ page }) => {
   await page.getByRole('button', { name: 'Add New Reservation' }).click();
   await page.locator('div').filter({ hasText: /^Date of Arrival$/ }).getByLabel('Choose date, selected date is Apr 17, 2022').click();
   await page.getByRole('gridcell', { name: '4', exact: true }).click();
-  await page.getByLabel('Room Quantity').click();
-  await page.getByLabel('Room Quantity').fill('1');
+  const ele = page.getByLabel('Room Quantity');
+  await ele.waitFor({state: "visible"});
+  // await page.locator('#room-size').click();
+  // await page.getByTestId('business-suite').click();
+  //await page.getByLabel('Room Quantity').click();
+  await ele.click();
+  await ele.fill('1');
   await page.getByLabel('First Name *').click();
   await page.getByLabel('First Name *').fill('Nikith');
   await page.getByLabel('Last Name *').click();
